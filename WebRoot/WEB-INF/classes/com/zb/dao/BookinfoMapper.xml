@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zb.dao.BookinfoMapper">
+  <resultMap id="BaseResultMap" type="com.zb.entity.Bookinfo">
+    <id column="book_id" jdbcType="INTEGER" property="bookId" />
+    <result column="book_code" jdbcType="VARCHAR" property="bookCode" />
+    <result column="book_name" jdbcType="VARCHAR" property="bookName" />
+    <result column="book_type" jdbcType="INTEGER" property="bookType" />
+    <result column="book_atuthor" jdbcType="VARCHAR" property="bookAtuthor" />
+    <result column="publish_press" jdbcType="VARCHAR" property="publishPress" />
+    <result column="publish_date" jdbcType="TIMESTAMP" property="publishDate" />
+    <result column="is_borrow" jdbcType="INTEGER" property="isBorrow" />
+    <result column="createdBy" jdbcType="VARCHAR" property="createdby" />
+    <result column="creation_time" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="last_updatetime" jdbcType="TIMESTAMP" property="lastUpdatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    book_id, book_code, book_name, book_type, book_atuthor, publish_press, publish_date, 
+    is_borrow, createdBy, creation_time, last_updatetime
+  </sql>
+  
+  
+  <select id="selectAll"   resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_info
+  </select>
+  
+  <select id="findSome" resultMap="BaseResultMap" parameterType="Bookinfo">
+		select * from book_info where 1=1
+		<if test="bookCode!= null and bookCode != ''">
+			and book_code like concat('%',#{bookCode},'%')
+		</if>
+		<if test="bookType != null and bookType != ''">
+			and book_type = #{bookType}
+		</if>
+	</select>
+  
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_info
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_info
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zb.entity.Bookinfo">
+    insert into book_info (book_id, book_code, book_name, 
+      book_type, book_atuthor, publish_press, 
+      publish_date, is_borrow, createdBy, 
+      creation_time, last_updatetime)
+    values (#{bookId,jdbcType=INTEGER}, #{bookCode,jdbcType=VARCHAR}, #{bookName,jdbcType=VARCHAR}, 
+      #{bookType,jdbcType=INTEGER}, #{bookAtuthor,jdbcType=VARCHAR}, #{publishPress,jdbcType=VARCHAR}, 
+      #{publishDate,jdbcType=TIMESTAMP}, #{isBorrow,jdbcType=INTEGER}, #{createdby,jdbcType=VARCHAR}, 
+      #{creationTime,jdbcType=TIMESTAMP}, #{lastUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zb.entity.Bookinfo">
+    insert into book_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        book_id,
+      </if>
+      <if test="bookCode != null">
+        book_code,
+      </if>
+      <if test="bookName != null">
+        book_name,
+      </if>
+      <if test="bookType != null">
+        book_type,
+      </if>
+      <if test="bookAtuthor != null">
+        book_atuthor,
+      </if>
+      <if test="publishPress != null">
+        publish_press,
+      </if>
+      <if test="publishDate != null">
+        publish_date,
+      </if>
+      <if test="isBorrow != null">
+        is_borrow,
+      </if>
+      <if test="createdby != null">
+        createdBy,
+      </if>
+      <if test="creationTime != null">
+        creation_time,
+      </if>
+      <if test="lastUpdatetime != null">
+        last_updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookId != null">
+        #{bookId,jdbcType=INTEGER},
+      </if>
+      <if test="bookCode != null">
+        #{bookCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null">
+        #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookType != null">
+        #{bookType,jdbcType=INTEGER},
+      </if>
+      <if test="bookAtuthor != null">
+        #{bookAtuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="publishPress != null">
+        #{publishPress,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isBorrow != null">
+        #{isBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null">
+        #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatetime != null">
+        #{lastUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zb.entity.Bookinfo">
+    update book_info
+    <set>
+      <if test="bookCode != null">
+        book_code = #{bookCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bookName != null">
+        book_name = #{bookName,jdbcType=VARCHAR},
+      </if>
+      <if test="bookType != null">
+        book_type = #{bookType,jdbcType=INTEGER},
+      </if>
+      <if test="bookAtuthor != null">
+        book_atuthor = #{bookAtuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="publishPress != null">
+        publish_press = #{publishPress,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null">
+        publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isBorrow != null">
+        is_borrow = #{isBorrow,jdbcType=INTEGER},
+      </if>
+      <if test="createdby != null">
+        createdBy = #{createdby,jdbcType=VARCHAR},
+      </if>
+      <if test="creationTime != null">
+        creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastUpdatetime != null">
+        last_updatetime = #{lastUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zb.entity.Bookinfo">
+    update book_info
+    set book_code = #{bookCode,jdbcType=VARCHAR},
+      book_name = #{bookName,jdbcType=VARCHAR},
+      book_type = #{bookType,jdbcType=INTEGER},
+      book_atuthor = #{bookAtuthor,jdbcType=VARCHAR},
+      publish_press = #{publishPress,jdbcType=VARCHAR},
+      publish_date = #{publishDate,jdbcType=TIMESTAMP},
+      is_borrow = #{isBorrow,jdbcType=INTEGER},
+      createdBy = #{createdby,jdbcType=VARCHAR},
+      creation_time = #{creationTime,jdbcType=TIMESTAMP},
+      last_updatetime = #{lastUpdatetime,jdbcType=TIMESTAMP}
+    where book_id = #{bookId,jdbcType=INTEGER}
+  </update>
+</mapper>
