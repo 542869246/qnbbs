@@ -162,4 +162,21 @@
 		</center>
 	</body>
 	<script type="text/javascript" color="255,0,0" opacity="0.5" zIndex="-2" count="399" src="js/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="<%=path%>/js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript">
+	$(function() {
+		$("form").submit(function() {
+			var flag = true
+			console.log($("[name='income']").val())
+			if ($("[name='income']").val() == '') {
+			
+				alert("预期收益不能为空！")
+				$("[name='income']").focus()
+				flag = false
+			}
+			return flag
+		})
+	})
+</script>
+	
 </html>
